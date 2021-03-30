@@ -12,7 +12,8 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
     
     var name = ""
     var lastName = ""
-    var mark: Int16 = 0 
+    var mark: Int16 = 0
+    var indexCell: IndexPath? = nil
     var students: [Student] = []
     var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>!
 
@@ -35,9 +36,19 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         }
         
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        tableView.reloadData()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+         name = ""
+         lastName = ""
+         mark = 0
+         indexCell = nil
+//        do {
+//            try fetchResultController.performFetch()
+//            students = fetchResultController.fetchedObjects as! [Student]
+//        } catch {
+//            print(error)
+//        }
+        
+    }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
@@ -107,11 +118,14 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         return cell
     }
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        name = students[indexPath.row].name
-//        lastName = students[indexPath.row].lastName
-//        mark = students[indexPath.row].mark
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        name = students[indexPath.row].name
+        lastName = students[indexPath.row].lastName
+        mark = students[indexPath.row].mark
+        indexCell = indexPath
+        tableView.cellForRow(at: indexPath)?.backgroundColor = UIColor.white
+        performSegue(withIdentifier: "addEditSegue", sender: self)
+    }
     
    
 
@@ -157,6 +171,8 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
                 dest.name = self.name
                 dest.lastName = self.lastName
                 dest.mark = self.mark
+                //dest.indexCell = self.indexCell
+//                dest.students = self.students
         }
     }
 }

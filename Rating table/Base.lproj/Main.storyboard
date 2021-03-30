@@ -18,49 +18,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3e-rD-uB6">
-                                <rect key="frame" x="121" y="120" width="34" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYk-Kl-ASi">
+                                <rect key="frame" x="69" y="163" width="73" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYk-Kl-ASi">
-                                <rect key="frame" x="82" y="155" width="73" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Средний балл" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mP0-rd-Hfv">
+                                <rect key="frame" x="29" y="206" width="113" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Средний балл" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mP0-rd-Hfv">
-                                <rect key="frame" x="37" y="198" width="113" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eTV-Ha-ZTi">
-                                <rect key="frame" x="163" y="113" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eTV-Ha-ZTi">
+                                <rect key="frame" x="147" y="113" width="120" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="JOq-tn-veK"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pgS-kJ-POi">
-                                <rect key="frame" x="163" y="155" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pgS-kJ-POi">
+                                <rect key="frame" x="147" y="156" width="120" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="e5P-3O-Qwg"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MdE-Dj-tkv">
-                                <rect key="frame" x="163" y="198" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MdE-Dj-tkv">
+                                <rect key="frame" x="147" y="199" width="120" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="RIP-kP-6GX"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlC-Aw-Vtj">
-                                <rect key="frame" x="150" y="250" width="123" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlC-Aw-Vtj">
+                                <rect key="frame" x="145.5" y="242" width="123" height="30"/>
                                 <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="123" id="reD-nS-UlO"/>
+                                </constraints>
                                 <state key="normal" title="Сохранить">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -68,9 +67,31 @@
                                     <action selector="saveData:" destination="Hh9-YH-VSj" eventType="touchUpInside" id="IvP-Cu-SmR"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3e-rD-uB6">
+                                <rect key="frame" x="108" y="120" width="34" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iip-hT-a78"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pgS-kJ-POi" firstAttribute="top" secondItem="eTV-Ha-ZTi" secondAttribute="bottom" constant="9" id="4F5-SM-6c1"/>
+                            <constraint firstItem="QYk-Kl-ASi" firstAttribute="top" secondItem="B3e-rD-uB6" secondAttribute="bottom" constant="22" id="982-DU-Lyd"/>
+                            <constraint firstItem="B3e-rD-uB6" firstAttribute="top" secondItem="iip-hT-a78" secondAttribute="top" constant="32" id="CqF-hn-sBr"/>
+                            <constraint firstItem="MdE-Dj-tkv" firstAttribute="centerX" secondItem="UCc-XQ-7Pz" secondAttribute="centerX" id="FwG-bS-nV9"/>
+                            <constraint firstItem="nlC-Aw-Vtj" firstAttribute="centerX" secondItem="UCc-XQ-7Pz" secondAttribute="centerX" id="Ilv-Ey-vJt"/>
+                            <constraint firstItem="nlC-Aw-Vtj" firstAttribute="top" secondItem="MdE-Dj-tkv" secondAttribute="bottom" constant="9" id="Kgx-Rr-FpS"/>
+                            <constraint firstItem="pgS-kJ-POi" firstAttribute="leading" secondItem="QYk-Kl-ASi" secondAttribute="trailing" constant="5" id="Oez-iv-yAB"/>
+                            <constraint firstItem="eTV-Ha-ZTi" firstAttribute="top" secondItem="iip-hT-a78" secondAttribute="top" constant="25" id="Utu-B0-HXv"/>
+                            <constraint firstItem="eTV-Ha-ZTi" firstAttribute="leading" secondItem="B3e-rD-uB6" secondAttribute="trailing" constant="5" id="avx-F5-DjT"/>
+                            <constraint firstItem="mP0-rd-Hfv" firstAttribute="top" secondItem="QYk-Kl-ASi" secondAttribute="bottom" constant="22" id="gAb-18-TtH"/>
+                            <constraint firstItem="MdE-Dj-tkv" firstAttribute="leading" secondItem="mP0-rd-Hfv" secondAttribute="trailing" constant="5" id="h6S-Pa-sbj"/>
+                            <constraint firstItem="MdE-Dj-tkv" firstAttribute="top" secondItem="pgS-kJ-POi" secondAttribute="bottom" constant="9" id="rcC-ig-8X5"/>
+                            <constraint firstItem="pgS-kJ-POi" firstAttribute="centerX" secondItem="UCc-XQ-7Pz" secondAttribute="centerX" id="slq-up-C4Y"/>
+                            <constraint firstItem="eTV-Ha-ZTi" firstAttribute="centerX" secondItem="UCc-XQ-7Pz" secondAttribute="centerX" id="tkQ-4b-3fp"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Добавить/Редактировать" id="Aiy-Ou-7gx"/>
                     <connections>
@@ -92,6 +113,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="5Mw-WE-eA9">
+                            <rect key="frame" x="0.0" y="99" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" id="Gbu-QU-Pye" customClass="TableViewCell" customModule="Rating_table" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43"/>
@@ -139,7 +165,7 @@
                             <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                             <imageReference key="landscapeImage" image="plus" catalog="system" symbolScale="large"/>
                             <connections>
-                                <segue destination="Hh9-YH-VSj" kind="show" id="UsK-Sa-CXC"/>
+                                <segue destination="Hh9-YH-VSj" kind="show" identifier="addEditSegue" id="UsK-Sa-CXC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -7,17 +7,23 @@
 
 import UIKit
 import CoreData
-class RedactorViewController: UIViewController {
+class RedactorViewController: UIViewController, NSFetchedResultsControllerDelegate {
     var name = ""
     var lastName = ""
     var mark: Int16 = 0
+   // var indexCell: IndexPath? = nil
+   // var students: [Student] = []
     var student: Student!
+    var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var lastNameTF: UITextField!
     @IBOutlet weak var markTF: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        saveButton.layer.cornerRadius = 10
+        saveButton.layer.borderWidth = 1.0
+        saveButton.clipsToBounds = true
         nameTF.text = name
         lastNameTF.text = lastName
         guard mark == 0 else {
@@ -28,16 +34,34 @@ class RedactorViewController: UIViewController {
     }
     
     @IBAction func saveData(_ sender: Any){
+        
         do {
             try  valid()
             if let managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext {
-                student = NSEntityDescription.insertNewObject(forEntityName: "Student", into: managedObjectContext) as? Student
-                
-                student.name = nameTF.text!
-                student.lastName = lastNameTF.text!
-                student.mark = Int16(markTF.text!)!
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Student")
+                fetchRequest.predicate = NSPredicate(format: "name == %@ AND lastName == %@", nameTF.text!, lastNameTF.text!)
+                    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+                fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+                fetchResultController.delegate = self
                 do {
-                    try managedObjectContext.save()
+                    try fetchResultController.performFetch()
+                } catch {
+                    print(error)
+                }
+                if fetchResultController?.fetchedObjects?.count ?? 0 > 0 {
+                    student = fetchResultController.fetchedObjects![0] as? Student
+                    student.setValue(nameTF.text!, forKey: "name")
+                    student.setValue(lastNameTF.text!, forKey: "lastName")
+                    student.setValue(Int16(markTF.text!)!, forKey: "mark")
+                } else {
+                    student = NSEntityDescription.insertNewObject(forEntityName: "Student", into: managedObjectContext) as? Student
+                    student.name = nameTF.text!
+                    student.lastName = lastNameTF.text!
+                    student.mark = Int16(markTF.text!)!
+                }
+                do {
+                    try student.managedObjectContext?.save()
+                    
                 } catch {
                     print(error)
                 }
@@ -45,18 +69,18 @@ class RedactorViewController: UIViewController {
         } catch{
             alert(error: error)
         }
-       
-       
-        
+            return
     }
+        
     
     func valid() throws {
 
-        guard let n = nameTF.text, n != "" else {
+        guard let _ = nameTF.text?.range(of: "^[a-zA-zа-яА-ЯёЁ]+$", options: .regularExpression) else {
             throw ValidateError.wrongName
 
         }
-        guard let l = lastNameTF.text, l != "" else {
+        
+        guard let _ = lastNameTF.text?.range(of: "^[a-zA-zа-яА-ЯёЁ]+$", options: .regularExpression) else {
 
             throw ValidateError.wrongLastName
         }
@@ -69,11 +93,11 @@ class RedactorViewController: UIViewController {
         var message: String
         switch error {
         case ValidateError.wrongName:
-           message = "Неправильно введено имя!"
+           message = "Неправильно введено имя! В поле Имя должны содержаться только русские или английские символы без пробелов."
         case ValidateError.wrongLastName:
-            message = "Неправильно введена фамилия!"
+            message = "Неправильно введена фамилия! В поле Фамилия должны содержаться только русские или английские символы без пробелов."
         case ValidateError.wrongMark:
-            message = "Неправильно введен средний балл!"
+            message = "Неправильно введен средний балл! В поле Средний балл только целое число от 1 до 5."
         default:
             message = error.localizedDescription
         }
