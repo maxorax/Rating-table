@@ -10,118 +10,65 @@ import CoreData
 class DataStoreManager{
     
     // MARK: - Core Data stack
-
-//    @available(iOS 10.0, *)
-//    lazy var viewContext: NSManagedObjectContext = persistentContainer.viewContext
-//
-//
-//    @available(iOS 10.0, *)
-//    lazy var persistentContainer: NSPersistentContainer = {
-//        let container = NSPersistentContainer(name: "Rating table")
-//        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-//            if let error = error as NSError? {
-//                fatalError("Unresolved error \(error), \(error.userInfo)")
-//            }
-//        })
-//        return container
-//    }()
-//
-//    @available(iOS 10.0, *)
-//    func obtainStudent() -> [Student]? {
-//
-//        if let student = try? viewContext.fetch(Student.fetchRequest()) as? [Student], !student.isEmpty  {
-//            return student
-//        } else { return nil }
-//    }
-//
-//    @available(iOS 10.0, *)
-//    func saveStudent(name: String , lastName: String, mark: Int16){
-//        let student = Student(context: viewContext)
-//        student.name = name
-//        student.lastName = lastName
-//        student.mark = mark
-//        do {
-//            try viewContext.save()
-//        } catch let error {
-//            print("Error: \(error)")
-//        }
-//    }
-//
-//    // MARK: - Core Data Saving support
-//
-//    @available(iOS 10.0, *)
-//    func saveContext () {
-//        let context = persistentContainer.viewContext
-//        if context.hasChanges {
-//            do {
-//                try context.save()
-//            } catch {
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
     
-    //MARK: - IOS 9
-    
-    static let moduleName = "StudentCoreData"
-        
-        lazy var mainMoc: NSManagedObjectContext = {
-            let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-            moc.persistentStoreCoordinator = self.coordinator
-            
-            moc.mergePolicy =  NSMergeByPropertyObjectTrumpMergePolicy
-            
-            return moc
-        }()
-
-        private lazy var model: NSManagedObjectModel = {
-            guard let modelURL = Bundle.main.url(forResource: DataStoreManager.moduleName,
-                                                                withExtension: "momd")
-            else {
-                fatalError("Ошибка при загрузке model из bundle")
-            }
-            guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
-                
-                fatalError("Ошибка инициализации модели mom из: \(modelURL)")
-            }
-            return mom
-        }()
-
-      private lazy var applicationDocumentsDirectory: NSURL = {
+    lazy var applicationDocumentsDirectory: NSURL = {
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "org.just.TEST" in the application's documents Application Support directory.
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1] as NSURL
-      }()
-
-      private lazy var coordinator: NSPersistentStoreCoordinator = {
-        
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
-
-        let persistentStoreURL =
-            self.applicationDocumentsDirectory.appendingPathComponent("\(DataStoreManager.moduleName).sqlite")
-        //print (persistentStoreURL)
-
+    }()
+    
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+        let modelURL = Bundle.main.url(forResource: "Rating_table", withExtension: "momd")
+        return NSManagedObjectModel(contentsOf: modelURL!)!
+    }()
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+        // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+        // Create the coordinator and store
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("Restaurant.sqlite")
+        var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType,
-                                               configurationName: nil,
-                                               at: persistentStoreURL,
-                                          options: [NSMigratePersistentStoresAutomaticallyOption: true,
-           NSInferMappingModelAutomaticallyOption: false])
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch {
-          fatalError("Ошибка Persistent store! \(error)")
+            // Report any error we got.
+            var dict = [String: AnyObject]()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject
+            
+            dict[NSUnderlyingErrorKey] = error as NSError
+            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            // Replace this with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+            abort()
         }
-        return coordinator
-      }()
         
-        func saveMainContext() {
-            if mainMoc.hasChanges {
-                do {
-                    try mainMoc.save()
-                } catch  {
-                    fatalError("Ошибка сохранения main managed object context! \(error)")
-                }
+        return coordinator
+    }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
+        let coordinator = self.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
+    
+    // MARK: - Core Data Saving support
+    
+    func saveContext () {
+        if managedObjectContext.hasChanges {
+            do {
+                try managedObjectContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nserror = error as NSError
+                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                abort()
             }
         }
-    
-    
+    }
 }

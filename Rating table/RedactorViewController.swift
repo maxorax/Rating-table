@@ -11,8 +11,6 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
     var name = ""
     var lastName = ""
     var mark: Int16 = 0
-   // var indexCell: IndexPath? = nil
-   // var students: [Student] = []
     var student: Student!
     var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>!
     @IBOutlet weak var nameTF: UITextField!
@@ -34,7 +32,6 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
     }
     
     @IBAction func saveData(_ sender: Any){
-        
         do {
             try  valid()
             if let managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext {
@@ -67,21 +64,17 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
                 }
             }
         } catch{
-            alert(error: error)
+            alertError(error: error)
         }
             return
     }
         
     
     func valid() throws {
-
         guard let _ = nameTF.text?.range(of: "^[a-zA-zа-яА-ЯёЁ]+$", options: .regularExpression) else {
             throw ValidateError.wrongName
-
         }
-        
         guard let _ = lastNameTF.text?.range(of: "^[a-zA-zа-яА-ЯёЁ]+$", options: .regularExpression) else {
-
             throw ValidateError.wrongLastName
         }
         guard let m = Int16(markTF.text!), m > 0, m <= 5 else {
@@ -89,7 +82,7 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
         }
     }
     
-    func alert(error: Error){
+    func alertError(error: Error){
         var message: String
         switch error {
         case ValidateError.wrongName:
@@ -107,19 +100,5 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

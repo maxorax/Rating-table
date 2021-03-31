@@ -9,11 +9,9 @@ import UIKit
 import CoreData
 
 class TableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-    
     var name = ""
     var lastName = ""
     var mark: Int16 = 0
-    var indexCell: IndexPath? = nil
     var students: [Student] = []
     var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>!
 
@@ -40,15 +38,17 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
          name = ""
          lastName = ""
          mark = 0
-         indexCell = nil
-//        do {
-//            try fetchResultController.performFetch()
-//            students = fetchResultController.fetchedObjects as! [Student]
-//        } catch {
-//            print(error)
-//        }
-        
     }
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? RedactorViewController {
+                dest.name = self.name
+                dest.lastName = self.lastName
+                dest.mark = self.mark
+        }
+    }
+    
+    // MARK: - FetchResultController Delegate
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
@@ -78,30 +78,7 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         tableView.endUpdates()
     }
     
-//    @IBAction func unwindToRedactroViewController(_ unwindSegue: UIStoryboardSegue) {
-//        let sourceViewController = unwindSegue.source as! RedactorViewController
-//
-//
-//
-//
-//        self.name = sourceViewController.nameTF.text!
-//        self.lastName = sourceViewController.lastNameTF.text!
-//        self.mark = sourceViewController.markTF.text!
-//        if(name != "" && lastName != "" && mark != ""){
-//            students.append(Student(name: sourceViewController.nameTF.text!, lastName: sourceViewController.lastNameTF.text!, mark: sourceViewController.markTF.text!))
-//
-//        } else {
-//            sourceViewController.name = ""
-//            sourceViewController.lastName = ""
-//            sourceViewController.mark = ""
-//            sourceViewController.alert()
-//
-//        }
-//        print("\(name) \(lastName) \(mark)")
-//    }
-//
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return students.count
@@ -122,20 +99,10 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         name = students[indexPath.row].name
         lastName = students[indexPath.row].lastName
         mark = students[indexPath.row].mark
-        indexCell = indexPath
         tableView.cellForRow(at: indexPath)?.backgroundColor = UIColor.white
         performSegue(withIdentifier: "addEditSegue", sender: self)
     }
     
-   
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
@@ -157,22 +124,7 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
                 } catch {
                     print(error)
                 }
-                
-                
             }
-        }
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? RedactorViewController {
-                dest.name = self.name
-                dest.lastName = self.lastName
-                dest.mark = self.mark
-                //dest.indexCell = self.indexCell
-//                dest.students = self.students
         }
     }
 }
