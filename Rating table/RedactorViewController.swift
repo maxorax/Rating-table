@@ -11,8 +11,9 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
     var name = ""
     var lastName = ""
     var mark: Int16 = 0
-    var student: Student!
+    private var student: Student!
     var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>!
+ 
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var lastNameTF: UITextField!
     @IBOutlet weak var markTF: UITextField!
@@ -28,12 +29,13 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
             markTF.text = "\(mark)"
             return
         }
+        
         // Do any additional setup after loading the view.
     }
     
     @IBAction func saveData(_ sender: Any){
         do {
-            try  valid()
+            try  validateText()
             if let managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext {
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Student")
                 fetchRequest.predicate = NSPredicate(format: "name == %@ AND lastName == %@", nameTF.text!, lastNameTF.text!)
@@ -66,11 +68,12 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
         } catch{
             alertError(error: error)
         }
+            alertSaveDone()
             return
     }
         
     
-    func valid() throws {
+    func validateText() throws {
         guard let _ = nameTF.text?.range(of: "^[a-zA-zа-яА-ЯёЁ]+$", options: .regularExpression) else {
             throw ValidateError.wrongName
         }
@@ -82,23 +85,34 @@ class RedactorViewController: UIViewController, NSFetchedResultsControllerDelega
         }
     }
     
+    //MARK: - func alert
     func alertError(error: Error){
-        var message: String
+        var message = ""
+        var errorMessage = ""
         switch error {
         case ValidateError.wrongName:
-           message = "Неправильно введено имя! В поле Имя должны содержаться только русские или английские символы без пробелов."
+            errorMessage = "Неправильно введено имя!"
+           message = "В поле Имя должны содержаться только русские или английские символы без пробелов."
         case ValidateError.wrongLastName:
-            message = "Неправильно введена фамилия! В поле Фамилия должны содержаться только русские или английские символы без пробелов."
+            errorMessage = "Неправильно введена фамилия!"
+            message = "В поле Фамилия должны содержаться только русские или английские символы без пробелов."
         case ValidateError.wrongMark:
-            message = "Неправильно введен средний балл! В поле Средний балл только целое число от 1 до 5."
+            errorMessage = "Неправильно введен средний балл!"
+            message = "В поле Средний балл только целое число от 1 до 5."
         default:
             message = error.localizedDescription
         }
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: errorMessage, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "ок", style: .default, handler: nil)
 
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func alertSaveDone() {
+        let alertController = UIAlertController(title: "Ученик сохранен", message: "", preferredStyle: .actionSheet)
+        self.present(alertController, animated: true, completion: nil)
+        alertController.dismiss(animated: true, completion: nil)
     }
 
 }

@@ -17,7 +17,6 @@
 		B550F3B92610F5B4008AB904 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B550F3B82610F5B4008AB904 /* TableViewController.swift */; };
 		B550F3BC2610F866008AB904 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B550F3BB2610F866008AB904 /* TableViewCell.swift */; };
 		B56E895A261127B90068313A /* ValidateError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56E8959261127B90068313A /* ValidateError.swift */; };
-		B5BE4C7826127336008D5866 /* DataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE4C7726127336008D5866 /* DataStoreManager.swift */; };
 		B5BE4C8426127466008D5866 /* Student+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE4C8226127466008D5866 /* Student+CoreDataClass.swift */; };
 		B5BE4C8526127466008D5866 /* Student+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE4C8326127466008D5866 /* Student+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +34,6 @@
 		B550F3B82610F5B4008AB904 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		B550F3BB2610F866008AB904 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		B56E8959261127B90068313A /* ValidateError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateError.swift; sourceTree = "<group>"; };
-		B5BE4C7726127336008D5866 /* DataStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreManager.swift; sourceTree = "<group>"; };
 		B5BE4C8226127466008D5866 /* Student+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		B5BE4C8326127466008D5866 /* Student+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -83,7 +81,6 @@
 				B550F3AC26109C09008AB904 /* Info.plist */,
 				B550F3A426109C05008AB904 /* Rating_table.xcdatamodeld */,
 				B56E8959261127B90068313A /* ValidateError.swift */,
-				B5BE4C7726127336008D5866 /* DataStoreManager.swift */,
 			);
 			path = "Rating table";
 			sourceTree = "<group>";
@@ -161,7 +158,6 @@
 				B550F3B92610F5B4008AB904 /* TableViewController.swift in Sources */,
 				B550F3A626109C05008AB904 /* Rating_table.xcdatamodeld in Sources */,
 				B56E895A261127B90068313A /* ValidateError.swift in Sources */,
-				B5BE4C7826127336008D5866 /* DataStoreManager.swift in Sources */,
 				B5BE4C8526127466008D5866 /* Student+CoreDataProperties.swift in Sources */,
 				B550F39C26109C05008AB904 /* AppDelegate.swift in Sources */,
 				B550F3B52610E7A7008AB904 /* RedactorViewController.swift in Sources */,

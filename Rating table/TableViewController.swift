@@ -9,11 +9,11 @@ import UIKit
 import CoreData
 
 class TableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-    var name = ""
-    var lastName = ""
-    var mark: Int16 = 0
-    var students: [Student] = []
-    var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>!
+    private var name = ""
+    private var lastName = ""
+    private var mark: Int16 = 0
+    private var students: [Student] = []
+    private var fetchResultController: NSFetchedResultsController<NSFetchRequestResult>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +35,11 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         
     }
     override func viewWillAppear(_ animated: Bool) {
-         name = ""
-         lastName = ""
-         mark = 0
+        name = ""
+        lastName = ""
+        mark = 0
     }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? RedactorViewController {
@@ -48,8 +49,7 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         }
     }
     
-    // MARK: - FetchResultController Delegate
-    
+    // MARK: - FetchResultController
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
@@ -92,6 +92,7 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         cell.fullNameLabel.text = "\(number.name) \(number.lastName)"
         cell.fullNameLabel.sizeToFit()
         cell.markLabel.text = "\(number.mark)"
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
     
@@ -99,7 +100,6 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         name = students[indexPath.row].name
         lastName = students[indexPath.row].lastName
         mark = students[indexPath.row].mark
-        tableView.cellForRow(at: indexPath)?.backgroundColor = UIColor.white
         performSegue(withIdentifier: "addEditSegue", sender: self)
     }
     
@@ -108,10 +108,8 @@ class TableViewController: UITableViewController, NSFetchedResultsControllerDele
         return .delete
     }
     
-//     Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
             if let managedObjectContext = (UIApplication.shared.delegate as? AppDelegate)?.managedObjectContext {
                 
                 let studentToDelete = self.fetchResultController.object(at: indexPath) as! Student
